@@ -13,10 +13,4 @@ class Node
         this->data = node.data;
         this->next = node.next;
     }
-    Node* operator +(const Node& node)
-    {
-        this->data = node.data;
-        this->next = node.next;
-        return this;
-    }
 };
