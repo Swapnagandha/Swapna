@@ -89,5 +89,48 @@ class LinkedList
             }
         }
     }  
+     Node* FindMiddle()
+    {
+        Node *slow_ptr = NULL;
+        if(head)
+        {
+            slow_ptr = head;
+            Node *fast_ptr = head->next;
+            while(fast_ptr && fast_ptr->next != NULL)
+            {
+                slow_ptr = slow_ptr->next;  //increment it by 1 step 
+                fast_ptr = fast_ptr->next->next;  //increment it by 2 steps
+            }
+            //std::cout << "Middle Node of the list : " << slow_ptr->data << std::endl;
+        }
+        return slow_ptr;
+    }
     
+    int SizeofList()
+    {
+        int length = 0;
+        if(head)
+        {
+            length++;
+           // Node *slow_ptr = head; //increment it by 1 step 
+            Node *fast_ptr = head->next; //increment it by 2 steps
+            while(1)
+            {
+                if(fast_ptr != NULL)
+                {
+                   length++ ;
+                }
+                else
+                    break;
+                if(fast_ptr->next != NULL)
+                {
+                   length++; 
+                   fast_ptr = fast_ptr->next->next;
+                }
+                else
+                    break;
+            }
+        }
+        return length;
+    }
 };
