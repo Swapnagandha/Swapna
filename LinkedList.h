@@ -1,3 +1,11 @@
+/******************************************************************************
+
+                              Online C++ Compiler.
+               Code, Compile, Run and Debug C++ program online.
+Write your code in this editor and press "Run" button to compile and execute it.
+
+*******************************************************************************/
+
 #include <iostream>
 
 using namespace std;
@@ -44,7 +52,7 @@ class LinkedList
             temp->next = new Node(data);
         }
     }
-    void Print()
+ 
     void DeleteNode(const int data)
     {
        
@@ -88,8 +96,34 @@ class LinkedList
                 temp = temp->next;
             }
         }
-    }  
-     Node* FindMiddle()
+    } 
+    Node* FindKthElementFromEnd(const int k)
+    {
+        Node *slow_ptr = NULL;
+        if(head && k > 0)
+        {
+            Node *fast_ptr = head;
+            for(int i=1; i < k ; ++i)
+            {
+                fast_ptr = fast_ptr->next;  //increment it by k steps
+                if(fast_ptr == NULL)
+                {
+                    std::cout << "k is out of bound" << std::endl;
+                    return NULL;
+                }
+            }
+            std::cout << "kthEle from start : " << fast_ptr->data << std::endl;
+            slow_ptr = head;
+            while(fast_ptr && fast_ptr->next != NULL)
+            {
+                slow_ptr = slow_ptr->next;  
+                fast_ptr = fast_ptr->next; 
+            }
+            //std::cout << "Middle Node of the list : " << slow_ptr->data << std::endl;
+        }
+        return slow_ptr;
+    }
+    Node* FindMiddle()
     {
         Node *slow_ptr = NULL;
         if(head)
@@ -133,4 +167,48 @@ class LinkedList
         }
         return length;
     }
+    void Reverse()
+    {
+        if(head && head->next)
+        {
+            Node *prev = NULL;
+            Node *curr = head;
+            Node *next = head->next;
+            head->next = NULL;
+            while(next)
+            {
+                prev = curr;
+                curr = next;
+                next = next->next;
+                curr->next = prev;
+            }
+            head = curr;
+        }
+    }
+        
 };
+
+int main()
+{
+    LinkedList list;
+    list.AddNode(10);
+    list.AddNode(20);
+    list.AddNode(30);
+    list.AddNode(40);
+    list.AddNode(50);
+    list.AddNode(60);
+    list.AddNode(70);
+    list.AddNode(80);
+    list.AddNode(90);
+    list.AddNode(100);
+    list.Print();
+    Node *mid = list.FindMiddle();
+    std::cout<<"Middle ele - " << mid->data << std::endl;
+    Node *kthEle = list.FindKthElementFromEnd(2);
+    if(kthEle)
+        std::cout<<"kthEle ele - " << kthEle->data << std::endl;
+
+    list.Reverse();
+    list.Print();
+    return 0;
+}
